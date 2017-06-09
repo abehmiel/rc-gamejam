@@ -139,6 +139,7 @@ function start_game()
            lv=0,
            en=0.0,
            os=0.0,
+           angle=0,
            phase=flr(rnd(360))
           }
 end
@@ -193,16 +194,16 @@ end
 
 function draw_game()
  cls()
- print(player.colp,8,8,
+ print(player.colp,0,120,
  cols[player.colp])
- print(player.coln,16,16,
+ print(player.coln,4,120,
  cols[player.coln])
  print(player.kx,
- 24,24,9)
+ 10,120,9)
  print(player.ky,
- 32,32,10)
- print(homo,40,40,11)
- print(lumo,48,48,12) 
+ 24,120,10)
+ print("homo "..(homo or 1),40,120,11)
+ print("lumo "..(lumo or 1),88,120,12) 
 end
 
 function draw_gameover()
