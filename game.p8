@@ -10,7 +10,8 @@ cols = {8,9,10,11,12,13}
 level = 1
 sqrt3 = sqrt(3)
 selfe = 0
-t = -2.7
+t = -3.033
+s0 = 0.129
 tol = 0.28
 size = 500
 
@@ -23,6 +24,7 @@ kymin = 91
 
 -- math
 -- 
+
 --
 -- create kx, ky table
 a=1.557
@@ -33,7 +35,7 @@ for i=1, size do
  kx[i]=pi*(i-size/2)/(la*size)
 end
 
--- t-b energy calculation
+-- t-b energy calculations
 -- 
 function calc_en(k1,k2)
  return sqrt(
@@ -43,23 +45,18 @@ function calc_en(k1,k2)
   * cos(k2*la / 2.0) )
 end
 
--- populate energy table
---
-
 function get_energies(row,column)
   emod = calc_en(kx[row],kx[column])
-  homo = selfe + t * emod
-  lumo = selfe - t * emod
+  lumo = -(selfe + t * emod)/
+         ( 1 - s0*emod)
+  homo = -(selfe - t * emod)/
+         ( 1 + s0*emod)
 end
-
--- init parameters
---
-
-mainmusic = true
-
 
 -- menu-related functions 
 -- 
+
+mainmusic = true
 
 function togglemusic()
 	mainmusic = not mainmusic
@@ -79,7 +76,7 @@ end
 
 menuitem(1, "toggle music", togglemusic)
 
---
+-- special functions
 --
 
 function _init()
