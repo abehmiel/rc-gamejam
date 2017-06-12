@@ -269,40 +269,13 @@ function update_game()
  adjust_vals()
 end
 
-function rotabout(ang)
-
- kxp = kx[player.kx]*
-          cos(ang/360)
-      -kx[player.ky]*
-          sin(ang/360)
- kyp = kx[player.ky]*
-          cos(ang/360)
-      +kx[player.kx]*
-          sin(ang/360)
-end
-
-function smallang()
-   return (360*atan2(
-   kx[player.kx],
-  -kx[player.ky]))
-end
-
 function get_path()
- sextant=flr(12*atan2(
+ gtom=abs((((360*atan2(
    kx[player.kx],
-  -kx[player.ky]))
- 
- if ( sextant%2==1) then
-  ang = 2*(smallang() - 30*
-  sextant) + 30*(sextant-1) 
-  rotabout(ang)
- elseif (sextant%2==0) then
-  ang = 30*sextant
-  rotabout(ang)
- end
- pcg = 1 - abs(kxp)/0.2098 
- pck = 1 - abs(kyp-0.1208)/0.1208
- pcm = 1 - pck - pcg
+  -kx[player.ky])
+  )%60)-30)/30)
+ --(1-gtom)*get_k(nodes) +
+ --gtom*get_m(nodes) 
 end
 
 function get_k(nodes)
@@ -346,7 +319,6 @@ function get_waves()
   end
  end
 end
-
 function scrollrc()
  palt(0,false)
  palt(14,true)
@@ -421,14 +393,15 @@ function draw_gameover()
 end
 
 function print_debug()
- print("sextant "
- ..(sextant or 1),0, 110,7)
- print("pcg "..(pcg or 1),0,100,11)
- print("pcm "..(pcm or 0),44,100,11)
- print("pck "..(pck or 0),88,100,11)
- print("ang "..(ang or 0),0,0,9)
- print(kxp,10,120,9)
- print(kyp,44,120,10)
+ print("gtom "..(gtom or 1),0, 110,7)
+-- print("y "..y,30, 110,7)
+-- print("z "..z,60, 110,7)
+ print(player.colp,0,120,
+ cols[player.colp])
+ print(player.coln,5,120,
+ cols[player.coln])
+ print(player.kx,10,120,9)
+ print(player.ky,44,120,10)
  if (player.eisl) then
   print("lumo "..(player.en),82,120,12) 
  else
